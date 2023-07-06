@@ -12,10 +12,12 @@ on:
 jobs:
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }} 
     strategy:
      matrix:
-        go_version: ['1.19', '1.18', '>=1.19']    
+        go_version: ['1.19', '1.18', '>=1.19']  
+        os: ['ubuntu-latest', 'ubuntu-18.04']
+        
     steps:
     - uses: actions/checkout@v3
 
@@ -34,7 +36,7 @@ jobs:
       run: go test -v main_test.go
       
   build:
-    runs-on: ubuntu-latest
+    runs-on:  ${{ matrix.os }} 
     steps:
     - uses: actions/checkout@v3  
     - name: Build
